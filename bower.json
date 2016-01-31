@@ -1,0 +1,22 @@
+{
+  "name": "ccjmne-angular-seed",
+  "description": "An AngularJS project with Gulp, JSHint, Browserify and a LiveReload server.",
+  "main": "app/app.js",
+  "authors": [
+    "ccjmne <ccjmne@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [
+    "node"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+  }
+}
