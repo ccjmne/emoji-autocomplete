@@ -3,10 +3,14 @@ A Web development project with Gulp, JSHint, Browserify, Sass and a LiveReload s
 --
 Dev usage:
 
-#> npm install
-#> npm start
+```
+> npm install
+> npm start
+```
 
 --
 Production build:
 
-#> gulp build
+```
+> gulp build
+```
