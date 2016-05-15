@@ -1,6 +1,6 @@
 {
   "name": "ccjmne-angular-seed",
-  "description": "An AngularJS project with Gulp, JSHint, Browserify and a LiveReload server.",
+  "description": "A Web development project with Gulp, JSHint, Browserify, Sass and a LiveReload server.",
   "main": "app/app.js",
   "authors": [
     "ccjmne <ccjmne@gmail.com>"
@@ -17,6 +17,5 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-  }
+  "dependencies": {}
 }
