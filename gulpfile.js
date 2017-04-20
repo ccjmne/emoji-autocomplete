@@ -10,8 +10,9 @@ const browserify = require('browserify'),
   source = require('vinyl-source-stream');
 
 const sourceDir = 'src/',
-  buildDir = 'build/',
-  manifest = require('./' + sourceDir + 'manifest.json');
+  buildDir = 'build/';
+
+let manifest = require('./' + sourceDir + 'manifest.json');
 
 let prod = true;
 
@@ -20,6 +21,7 @@ gulp.task('dev', function () {
 });
 
 gulp.task('build', function () {
+  manifest = require('./' + sourceDir + 'manifest.json');
   lint();
   bundlejs();
   assets();
