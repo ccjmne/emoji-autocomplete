@@ -1,9 +1,0 @@
-$theme: darkred;
-
-body {
-	@for $i from 1 through 4 {
-    :nth-child(3n + #{$i}) {
-      color: lighten($theme, $i*15%)
-    }
-  }
-}

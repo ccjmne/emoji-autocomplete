@@ -1,11 +1,17 @@
 {
-  "name": "ccjmne-angular-seed",
-  "description": "A Web development project with Gulp, JSHint, Browserify, Sass and a LiveReload server.",
-  "main": "app/app.js",
-  "authors": [
-    "ccjmne <ccjmne@gmail.com>"
-  ],
-  "license": "MIT",
+  "name": "emoji-autocomplete",
+  "version": "0.0.1",
+  "description": "A Chrome extension allowing you to actually type emoji directly into any text area without lifting your hands from your keyboard.",
+  "homepage": "https://github.com/ccjmne/emoji-autocomplete",
+  "author": {
+    "name": "ccjmne",
+    "email": "ccjmne@gmail.com",
+    "url": "https://github.com/ccjmne"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccjmne/emoji-autocomplete.git"
+  },
   "moduleType": [
     "node"
   ],

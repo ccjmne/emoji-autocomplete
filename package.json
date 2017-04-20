@@ -1,29 +1,44 @@
 {
-  "name": "ccjmne-webdev-seed",
-  "description": "A Web development project with Gulp, JSHint, Browserify, Sass and a LiveReload server.",
+  "name": "emoji-autocomplete",
+  "version": "0.0.1",
+  "description": "A Chrome extension allowing you to actually type emoji directly into any text area without lifting your hands from your keyboard.",
+  "homepage": "https://github.com/ccjmne/emoji-autocomplete",
+  "author": {
+    "name": "ccjmne",
+    "email": "ccjmne@gmail.com",
+    "url": "https://github.com/ccjmne"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ccjmne/emoji-autocomplete.git"
+  },
   "scripts": {
-    "start": "gulp dev build serve watch"
+    "start": "gulp dev build watch"
   },
-  "browser": {
-  },
+  "browser": {},
   "browserify": {
     "transform": [
       "browserify-shim"
     ]
   },
-  "browserify-shim": {
-  },
+  "browserify-shim": {},
   "devDependencies": {
-    "browserify": "^12.0.1",
+    "browserify": "^14.3.0",
     "browserify-shim": "^3.8.11",
     "gulp": "^3.9.0",
     "gulp-if": "^2.0.0",
     "gulp-jshint": "^2.0.0",
-    "gulp-sass": "^2.1.1",
-    "gulp-uglify": "^1.5.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-util": "^3.0.8",
     "gulp-webserver": "^0.9.1",
     "jshint": "^2.9.1-rc2",
+    "uglify-js": "git+https://github.com/mishoo/UglifyJS2.git#harmony",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
+  },
+  "dependencies": {
+    "emojilib": "^2.2.1",
+    "jquery": "^3.2.1",
+    "lodash": "^4.17.4"
   }
 }

@@ -1,0 +1,43 @@
+{
+  "name": "emoji-autocomplete",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "description": "A Chrome extension allowing you to actually type emoji directly into any text area without lifting your hands from your keyboard.",
+  "author": {
+    "name": "ccjmne",
+    "email": "ccjmne@gmail.com",
+    "url": "https://github.com/ccjmne"
+  },
+  "icons": {
+    "16": "assets/icon16.png",
+    "48": "assets/icon48.png",
+    "128": "assets/icon128.png"
+  },
+  "default_locale": "en",
+  "background": {
+    "scripts": [
+      "src/bg/background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": "assets/icon19.png",
+    "default_title": "browser action demo",
+    "default_popup": "src/browser_action/browser_action.html"
+  },
+  "permissions": [
+    "contentSettings",
+    "contextMenus"
+  ],
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "css": [
+      "src/inject/inject.css"
+    ],
+    "js": [
+      "src/inject/inject.js"
+    ]
+  }]
+}
