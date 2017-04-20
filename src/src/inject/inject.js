@@ -2,6 +2,11 @@
 
 const _ = require('lodash');
 const $ = require('jquery');
+const getCaretCoordinates = require('textarea-caret');
+
+function getDropdown() {
+  return (elem => elem.length ? elem : $('<div/>', { id: '__emoji_autocomplete' }).prependTo(document.body))($('div#__emoji_autocomplete'));
+}
 
 function setSelectionRange(input, selectionStart, selectionEnd) {
   if (input.setSelectionRange) {
@@ -21,8 +26,8 @@ function setCaretToPos(input, pos) {
 }
 
 function EmojiAutocomplete(config, elem) {
-  this.beforeCaret = new RegExp((config.initSequence.length ? '' : '\\b') + config.initSequence + '([a-zA-Z_]*)$');
-  this.afterCaret = new RegExp('^' + config.initSequence + '([a-zA-Z_]*)\\b');
+  this.beforeCaret = new RegExp((config.initSequence.length ? '' : '\\b') + config.initSequence + '([a-zA-Z0-9_+-]*)$');
+  this.afterCaret = new RegExp('^' + config.initSequence + '([a-zA-Z0-9_+-]*)\\b');
   this.config = config;
   this.elem = elem;
 
@@ -36,6 +41,7 @@ function EmojiAutocomplete(config, elem) {
         this.elem.val(this.elem.val().substr(0, start) + this.__emoji[0].char + space + this.elem.val().substr(end));
         setCaretToPos(this.elem.get(0), this.__match.index + this.__emoji[0].char.length + space.length);
       })(this.elem.val().length === end ? this.config.spaceAfter : '');
+      this.activateMenu(false);
       e.preventDefault();
     }
   }.bind(this);
@@ -45,7 +51,7 @@ function EmojiAutocomplete(config, elem) {
     const after = string.substr(pos);
     const beforeMatch = before.match(this.beforeCaret);
     if (beforeMatch) {
-      const more = after.match(/^([a-zA-Z_]+)\b/);
+      const more = after.match(/^([a-zA-Z0-9_+-]+)\b/i);
       const word = beforeMatch[1] + (more ? more[1] : '');
       return { word: word, index: beforeMatch.index, length: word.length + this.config.initSequence.length };
     }
@@ -60,18 +66,20 @@ function EmojiAutocomplete(config, elem) {
     if (!doActivate) {
       this.__active = false;
       this.elem.off('keydown', keydownHandler);
+      getDropdown().css({ display: 'none' });
     } else if (!this.__active) {
       this.__active = true;
       this.elem.on('keydown', keydownHandler);
+      const areaCoords = this.elem.offset();
+      // TODO: apparnetly that's broken :'(
+      const caretCoords = getCaretCoordinates(this.elem.get(0), this.elem.selectionEnd);
+      // TODO: actual line-height instead of 1.5 * font-size
+      getDropdown().css({ display: 'inline-block', top: areaCoords.top + caretCoords.top + parseInt(this.elem.css('font-size'), 10) * 1.5, left: areaCoords.left + caretCoords.left });
     }
   };
 
   this.init = function () {
     this.elem.on('keyup click focus', () => {
-      if (this.__caretPosition === this.elem.prop('selectionStart')) {
-        return;
-      }
-
       this.__caretPosition = this.elem.prop('selectionStart');
 
       this.__match = this.wordAt(this.elem.val(), this.__caretPosition);
@@ -79,8 +87,21 @@ function EmojiAutocomplete(config, elem) {
         window.chrome.extension.sendMessage({ type: 'query', keyword: this.__match.word }, emoji => {
           this.__emoji = emoji;
           this.activateMenu(this.__match && this.__emoji && this.__emoji.length);
+          getDropdown().empty();
+          _.each(emoji, entry => {
+            getDropdown().append($('<div />', {
+              class: 'entry',
+              text: entry.char + ' ' + entry.__key + ' — ' + entry.keywords.join(', ')
+            }));
+          });
         });
+      } else {
+        this.activateMenu(false);
       }
+    });
+
+    this.elem.on('blur', () => {
+      this.activateMenu(false);
     });
   };
 }

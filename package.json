@@ -40,6 +40,7 @@
   "dependencies": {
     "emojilib": "^2.2.1",
     "jquery": "^3.2.1",
-    "lodash": "^4.17.4"
+    "lodash": "^4.17.4",
+    "textarea-caret": "^3.0.2"
   }
 }
